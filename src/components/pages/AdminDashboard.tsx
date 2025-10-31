@@ -126,41 +126,41 @@ export const AdminDashboard: React.FC = () => {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white border-b border-notion-gray-200 px-6 py-4"
+        className="bg-white border-b border-notion-gray-200 px-4 sm:px-6 py-4"
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-notion-blue-600 rounded-lg flex items-center justify-center overflow-hidden">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-notion-blue-600 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
               <img src="/DVscan.png" alt="DVcheck Logo" className="w-full h-full object-cover" />
             </div>
-            <div>
-              <h1 className="text-xl font-semibold text-notion-gray-900">
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-xl font-semibold text-notion-gray-900 truncate">
                 DVcheck Admin
               </h1>
-              <p className="text-sm text-notion-gray-600">
+              <p className="text-xs sm:text-sm text-notion-gray-600 truncate">
                 Welcome back, {user?.name}
               </p>
             </div>
           </div>
-          <Button variant="ghost" onClick={logout} className="flex items-center space-x-2">
+          <Button variant="ghost" onClick={logout} className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
             <LogOut className="w-4 h-4" />
-            <span>Logout</span>
+            <span className="hidden sm:inline">Logout</span>
           </Button>
         </div>
       </motion.header>
 
       {/* Tab Navigation */}
-      <div className="bg-white border-b border-notion-gray-200 px-6">
+      <div className="bg-white border-b border-notion-gray-200 px-4 sm:px-6">
         <div className="flex space-x-1 max-w-7xl mx-auto">
           <button
             onClick={() => setActiveTab('users')}
-            className={`px-4 py-3 text-sm font-medium transition-colors relative ${
+            className={`px-3 sm:px-4 py-3 text-sm font-medium transition-colors relative flex-1 sm:flex-none ${
               activeTab === 'users'
                 ? 'text-notion-blue-600'
                 : 'text-notion-gray-600 hover:text-notion-gray-900'
             }`}
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center space-x-2">
               <Users className="w-4 h-4" />
               <span>Users</span>
             </div>
@@ -174,13 +174,13 @@ export const AdminDashboard: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('events')}
-            className={`px-4 py-3 text-sm font-medium transition-colors relative ${
+            className={`px-3 sm:px-4 py-3 text-sm font-medium transition-colors relative flex-1 sm:flex-none ${
               activeTab === 'events'
                 ? 'text-notion-blue-600'
                 : 'text-notion-gray-600 hover:text-notion-gray-900'
             }`}
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center space-x-2">
               <Calendar className="w-4 h-4" />
               <span>Events</span>
             </div>
@@ -199,14 +199,14 @@ export const AdminDashboard: React.FC = () => {
       {activeTab === 'events' ? (
         <EventsManagement />
       ) : (
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="max-w-7xl mx-auto">
             {/* Stats Cards */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8"
           >
             <Card hover>
               <div className="flex items-center justify-between">
@@ -248,31 +248,33 @@ export const AdminDashboard: React.FC = () => {
             transition={{ delay: 0.2 }}
           >
             <Card>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold text-notion-gray-900">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                <h2 className="text-lg font-semibold text-notion-gray-900 hidden sm:block">
                   User Management
                 </h2>
-                <div className="flex space-x-3">
+                <div className="flex flex-row gap-2 sm:gap-3 w-full sm:w-auto">
                   <Button
                     onClick={handleGenerateMissingQRCodes}
                     variant="secondary"
                     disabled={isGeneratingQR}
-                    className="flex items-center space-x-2"
+                    className="flex-1 min-w-0 items-center justify-center space-x-2 px-2 py-2 text-xs sm:flex-none sm:px-4 sm:py-2 sm:text-sm"
                   >
                     <QrCode className="w-4 h-4" />
-                    <span>{isGeneratingQR ? 'Generating...' : 'Generate QR Codes'}</span>
+                    <span className="hidden sm:inline">{isGeneratingQR ? 'Generating...' : 'Generate QR Codes'}</span>
+                    <span className="sm:hidden">{isGeneratingQR ? 'Generating...' : 'QR Codes'}</span>
                   </Button>
                   <Button
                     onClick={() => setShowExcelUpload(true)}
                     variant="secondary"
-                    className="flex items-center space-x-2"
+                    className="flex-1 min-w-0 items-center justify-center space-x-2 px-2 py-2 text-xs sm:flex-none sm:px-4 sm:py-2 sm:text-sm"
                   >
                     <FileSpreadsheet className="w-4 h-4" />
-                    <span>Upload Excel</span>
+                    <span className="hidden sm:inline">Upload Excel</span>
+                    <span className="sm:hidden">Excel</span>
                   </Button>
                   <Button
                     onClick={() => setShowCreateUser(true)}
-                    className="flex items-center space-x-2"
+                    className="flex-1 min-w-0 items-center justify-center space-x-2 px-2 py-2 text-xs sm:flex-none sm:px-4 sm:py-2 sm:text-sm"
                   >
                     <UserPlus className="w-4 h-4" />
                     <span>Add User</span>
@@ -292,7 +294,7 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className="overflow-x-auto overflow-y-auto max-h-[70vh] table-scrollbar">
+              <div className="overflow-x-auto overflow-y-auto max-h-[60vh] sm:max-h-[70vh] table-scrollbar">
                 <table className="w-full min-w-[1400px]">
                   <thead>
                     <tr className="border-b border-notion-gray-200 bg-notion-gray-50">
@@ -400,7 +402,7 @@ export const AdminDashboard: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-lg max-h-[calc(100vh-2rem)] flex flex-col"
+            className="w-full max-w-lg max-h-[calc(100vh-2rem)] flex flex-col mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <Card className="flex flex-col h-full max-h-full overflow-hidden">
@@ -557,7 +559,7 @@ export const AdminDashboard: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto"
+            className="w-full max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <Card className="max-h-full overflow-hidden flex flex-col">
